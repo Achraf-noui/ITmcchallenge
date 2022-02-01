@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Superhero as SuperheroResource;
+use App\Http\Resources\SuperheroCollection;
 use App\Models\Superhero;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class SuperherosController extends Controller
     public function index()
     {
         $heroes = Superhero::all();
-        return $heroes;
+        return new SuperheroCollection($heroes);
     }
 
     /**
@@ -29,7 +31,7 @@ class SuperherosController extends Controller
     {
         $hero = Superhero::create($request->all());
         
-        return $hero;
+        return new SuperheroResource($hero);
     }
 
     /**
@@ -40,7 +42,7 @@ class SuperherosController extends Controller
      */
     public function show(Superhero $superhero)
     {
-        return $superhero;
+        return new SuperheroResource($superhero);
     }
 
     /**
@@ -54,7 +56,7 @@ class SuperherosController extends Controller
     {
         $superhero->update($request->all());
 
-        return $superhero;
+        return new SuperheroResource($superhero);
     }
 
     /**
